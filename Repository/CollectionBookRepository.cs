@@ -1,8 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Linq.Expressions;
-
-namespace LibraryTestTask
+﻿namespace LibraryTestTask
 {
 	internal class CollectionBookRepository : CollectionRepositoryBase<Book>, IBookRepository
 	{
