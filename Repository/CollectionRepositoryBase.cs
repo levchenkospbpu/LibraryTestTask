@@ -75,6 +75,7 @@ namespace LibraryTestTask
 				{
 					throw new ArgumentNullException();
 				}
+
 				wasDeleted = _dataSource.Set<T>().Remove(item);
 			}
 
@@ -147,6 +148,7 @@ namespace LibraryTestTask
 				{
 					throw new ArgumentNullException();
 				}
+
 				var dataSet = _dataSource.Set<T>();
 				var itemOld = dataSet.FirstOrDefault(x => x.Id == item.Id);
 
@@ -158,6 +160,7 @@ namespace LibraryTestTask
 				var itemIndex = dataSet.IndexOf(itemOld);
 				dataSet[itemIndex] = item.GetDeepCopy(); ;
 			}
+
 			catch (ArgumentNullException)
 			{
 				Console.WriteLine($"Null argument when trying to update a {nameof(T)}");
