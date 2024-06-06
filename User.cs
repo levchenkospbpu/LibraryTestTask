@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace LibraryTestTask
 {
-	internal class User
+	[Serializable]
+	internal class User : EntityBase
 	{
-		public uint Id { get; set; }
 		public string Name { get; set; }
 	}
 }

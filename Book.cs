@@ -1,8 +1,10 @@
-﻿namespace LibraryTestTask
+﻿using System;
+
+namespace LibraryTestTask
 {
-	internal class Book
+	[Serializable]
+	internal class Book : EntityBase
 	{
-		public uint Id { get; set; }
 		public string Title { get; set; }
 		public string Author { get; set; }
 		public bool IsAvailable { get; set; }

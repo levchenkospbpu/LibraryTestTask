@@ -18,36 +18,6 @@ namespace LibraryTestTask
 
 			var libraryService = serviceProvider.GetRequiredService<ILibraryService>();
 
-			var pasha = libraryService.CreateUser("ПАША");
-
-			var library = libraryService.GetLibrary();
-
-			Console.WriteLine("Users:");
-			foreach (var user in library.Users)
-			{
-				Console.WriteLine(user.Name);
-				user.Name += " EDITED";
-			}
-
-			Console.WriteLine("Books:");
-			foreach (var book in library.Books)
-			{
-				Console.WriteLine($"{book.Title} by {book.Author}");
-				book.Title += " EDITED";
-			}
-
-			Console.WriteLine("Users:");
-			foreach (var user in library.Users)
-			{
-				Console.WriteLine(user.Name);
-			}
-
-			Console.WriteLine("Books:");
-			foreach (var book in library.Books)
-			{
-				Console.WriteLine($"{book.Title} by {book.Author}");
-			}
-
 			Console.ReadLine();
 		}
 	}
