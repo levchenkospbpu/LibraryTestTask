@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 namespace LibraryTestTask
 {
@@ -18,7 +19,8 @@ namespace LibraryTestTask
 			var book = new Book
 			{
 				Title = title,
-				Author = author
+				Author = author,
+				IsAvailable = true
 			};
 			return _bookRepository.Create(book);
 		}
@@ -74,22 +76,106 @@ namespace LibraryTestTask
 
 		public Book GetBook(uint id)
 		{
-			return _bookRepository.Select(x => x.Id == id).FirstOrDefault();
+			try
+			{
+				var data = _bookRepository.Select(x => x.Id == id).FirstOrDefault();
+
+				if (data == default)
+				{
+					throw new ArgumentException();
+				}
+
+				return data;
+			}
+
+			catch (ArgumentException)
+			{
+				Console.WriteLine($"Book with id={id} was not found");
+				return default;
+			}
+
+			catch (Exception ex)
+			{
+				Console.WriteLine("Unexpected exception: " + ex.Message);
+				return default;
+			}
 		}
 
 		public void GiveBook(uint bookId, uint userId)
 		{
-			var book = GetBook(bookId);
+			try
+			{
+				var book = GetBook(bookId);
 
-			book.UserId = userId;
-			book.IsAvailable = false;
+				if (book == default)
+				{
+					throw new ArgumentException();
+				}
+
+				if (!book.IsAvailable)
+				{
+					throw new ArgumentException($"Book with id={bookId} is unavailable");
+				}
+
+				var user = GetUser(userId);
+
+				if (user == default)
+				{
+					throw new ArgumentException();
+				}
+
+				book.UserId = userId;
+				book.IsAvailable = false;
+
+				UpdateBook(book);
+			}
+
+			catch (ArgumentException ex)
+			{
+				Console.WriteLine(ex.Message);
+				return;
+			}
+
+			catch (Exception ex)
+			{
+				Console.WriteLine("Unexpected exception: " + ex.Message);
+				return;
+			}
 		}
 
 		public void ReceiveBook(uint id)
 		{
-			var book = GetBook(id);
-			book.UserId = null;
-			book.IsAvailable = true;
+			try
+			{
+				var book = GetBook(id);
+
+				if (book == default)
+				{
+					throw new ArgumentException();
+				}
+
+				if (book.IsAvailable == true)
+				{
+					throw new ArgumentException($"Book with id={id} is not in use");
+				}
+
+				book.UserId = null;
+				book.IsAvailable = true;
+
+				UpdateBook(book);
+			}
+
+			catch (ArgumentException ex)
+			{
+				Console.WriteLine(ex.Message);
+				return;
+			}
+
+			catch (Exception ex)
+			{
+				Console.WriteLine("Unexpected exception: " + ex.Message);
+				return;
+			}
 		}
 
 		public void UpdateBook(Book book)
@@ -104,7 +190,29 @@ namespace LibraryTestTask
 
 		public User GetUser(uint id)
 		{
-			return _userRepository.Select(x => x.Id == id).FirstOrDefault();
+			try
+			{
+				var data = _userRepository.Select(x => x.Id == id).FirstOrDefault();
+
+				if (data == default)
+				{
+					throw new ArgumentException();
+				}
+
+				return data;
+			}
+
+			catch (ArgumentException)
+			{
+				Console.WriteLine($"User with id={id} was not found");
+				return default;
+			}
+
+			catch (Exception ex)
+			{
+				Console.WriteLine("Unexpected exception: " + ex.Message);
+				return default;
+			}
 		}
 
 		public User[] GetAllUsers()

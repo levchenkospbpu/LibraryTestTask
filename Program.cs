@@ -18,7 +18,13 @@ namespace LibraryTestTask
 
 			var libraryService = serviceProvider.GetRequiredService<ILibraryService>();
 
-			Console.ReadLine();
+			ConsoleHelper.Menu(
+			("Create user", () => LibraryServiceConsoleActions.CreateUser(libraryService)),
+			("Show users", () => LibraryServiceConsoleActions.ShowUsers(libraryService)),
+			("Create book", () => LibraryServiceConsoleActions.CreateBook(libraryService)),
+			("Show books", () => LibraryServiceConsoleActions.ShowBooks(libraryService)),
+			("Give book", () => LibraryServiceConsoleActions.GiveBook(libraryService)),
+			("Exit", () => Environment.Exit(0)));
 		}
 	}
 }
