@@ -67,7 +67,7 @@
     <Compile Include="Models\Book.cs" />
     <Compile Include="Repository\CollectionBookRepository.cs" />
     <Compile Include="Repository\CollectionUserRepository.cs" />
-    <Compile Include="DataSource.cs" />
+    <Compile Include="Data\DataSource.cs" />
     <Compile Include="Models\EntityBase.cs" />
     <Compile Include="Extensions\EntityBaseExtensions.cs" />
     <Compile Include="Repository\IBookRepository.cs" />
